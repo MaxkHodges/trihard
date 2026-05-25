@@ -31,10 +31,18 @@ yarn-error.*
 *.pem
 
 # local env files
+.env
+.env.*
 .env*.local
 
 # typescript
 *.tsbuildinfo
+
+# EAS
+.eas/
+
+# credentials
+credentials.json
 
 # generated native folders
 /ios
