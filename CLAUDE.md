@@ -32,7 +32,15 @@ The app generates a structured training plan based on a target race, adapts it a
 - **Error tracking**: Sentry
 - **Analytics**: PostHog
 
-## 4. Architectural rules
+## 4. Database types
+
+After every Supabase migration, regenerate TypeScript types:
+```bash
+npm run db:types
+```
+This updates `types/database.ts`. The Supabase client in `lib/supabase/client.ts` is typed against this file — always keep it in sync.
+
+## 5. Architectural rules
 
 - All database access goes through `lib/db/` wrappers — never call the Supabase client directly in components
 - Fitness metrics are append-only — never update a row in `fitness_metrics`, always insert a new one
@@ -40,14 +48,14 @@ The app generates a structured training plan based on a target race, adapts it a
 - No business logic in components — components fetch data via hooks and render it
 - No `any` types — use `unknown` and narrow with type guards
 
-## 5. Naming conventions
+## 6. Naming conventions
 
 - Database columns: `snake_case`
 - TypeScript identifiers: `camelCase`
 - File names: `kebab-case`
 - React components: `PascalCase`
 
-## 6. Hard do-nots
+## 7. Hard do-nots
 
 - No third-party UI kits beyond what is already in the stack
 - No inline SQL in components
@@ -55,7 +63,7 @@ The app generates a structured training plan based on a target race, adapts it a
 - No `console.log` left in committed code
 - No `any` types
 
-## 7. Definition of done
+## 8. Definition of done
 
 Before declaring any task complete, run:
 1. `npm run typecheck` — must pass with zero errors

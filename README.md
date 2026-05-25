@@ -39,13 +39,27 @@ Required variables:
 - `EXPO_PUBLIC_SUPABASE_URL` — from your Supabase project settings
 - `EXPO_PUBLIC_SUPABASE_ANON_KEY` — from your Supabase project settings
 
-### Supabase local setup
+### Supabase — first-time setup
+
+1. Create a free project at [supabase.com](https://supabase.com)
+2. In your Supabase project: **Settings → API** — copy the Project URL and anon key into `.env`
+3. Link the CLI to your project:
 
 ```bash
-supabase start          # starts local Supabase stack
-supabase db reset       # applies migrations and seed data
-npm run db:types        # regenerates TypeScript types from schema
+supabase login                        # opens browser to authenticate
+supabase link --project-ref <ref>     # <ref> is the ID from your Supabase project URL
 ```
+
+### Supabase local development
+
+```bash
+supabase start          # starts local Supabase stack (Postgres, Auth, Storage)
+supabase db reset       # resets local DB, applies all migrations and seed data
+npm run db:types        # regenerates types/database.ts from local schema
+supabase stop           # shuts down local stack
+```
+
+Run `supabase start` once — it gives you a local URL and anon key to use in `.env` during development.
 
 ### Run the app
 
