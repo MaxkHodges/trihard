@@ -92,6 +92,36 @@ npm run lint:fix    # ESLint with auto-fix
 npm run format      # Prettier
 ```
 
+### Apple Sign-In setup
+
+Required to ship on iOS. Takes ~30 minutes.
+
+1. **Apple Developer Portal** → Certificates, Identifiers & Profiles → Identifiers → your App ID
+   - Enable **Sign In with Apple** capability
+2. **Supabase** → Authentication → Providers → Apple → enable and paste your:
+   - **Team ID** (top-right of Apple Developer Portal)
+   - **Key ID** and **Private Key** (create a new key with Sign In with Apple enabled)
+3. Apple Sign-In only works on a **real device or simulator with iOS 13+** — not Expo Go.
+   Run `eas build --profile development --platform ios` for a dev build.
+
+### Google Sign-In setup
+
+1. **Google Cloud Console** → APIs & Services → Credentials → Create Credentials → OAuth 2.0 Client ID
+   - Create one for **Web** — copy the client ID into `.env` as `EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID`
+   - Create one for **iOS** — you'll need your iOS bundle ID (`com.yourname.trihard`)
+   - Create one for **Android** — you'll need your SHA-1 signing key fingerprint
+2. **Supabase** → Authentication → Providers → Google → enable and paste the Web client ID and secret
+3. Google Sign-In requires a **native build** — not Expo Go.
+
+### Deploy Edge Functions
+
+```bash
+supabase functions deploy delete-account
+```
+
+Run this after any change to `supabase/functions/`. The function uses the service role key
+which is automatically available as `SUPABASE_SERVICE_ROLE_KEY` in the Edge Function runtime.
+
 ### GitHub branch protection
 
 Enable branch protection on `main` in GitHub → Settings → Branches:

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { AuthForm } from '../../components/AuthForm';
+import { SocialAuth } from '../../components/SocialAuth';
 import { useAuth } from '../../hooks/useAuth';
 
 function isValidEmail(email: string) {
@@ -71,6 +72,7 @@ export default function SignInScreen() {
           <TouchableOpacity onPress={() => router.push('/(auth)/forgot-password')}>
             <Text style={styles.link}>Forgot password?</Text>
           </TouchableOpacity>
+          <SocialAuth onError={setError} loading={loading} setLoading={setLoading} />
           <TouchableOpacity onPress={() => router.replace('/(auth)/sign-up')}>
             <Text style={styles.footerText}>
               No account? <Text style={styles.link}>Create one</Text>
