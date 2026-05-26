@@ -53,13 +53,27 @@ supabase link --project-ref <ref>     # <ref> is the ID from your Supabase proje
 ### Supabase local development
 
 ```bash
-supabase start          # starts local Supabase stack (Postgres, Auth, Storage)
-supabase db reset       # resets local DB, applies all migrations and seed data
-npm run db:types        # regenerates types/database.ts from local schema
-supabase stop           # shuts down local stack
+supabase start        # starts local Supabase stack (Postgres, Auth, Storage)
+npm run db:seed       # resets local DB, applies all migrations + seed data
+npm run db:types:local  # regenerates types/database.ts from local schema
+supabase stop         # shuts down local stack
 ```
 
 Run `supabase start` once — it gives you a local URL and anon key to use in `.env` during development.
+
+The seed creates a test user (`dev@trihard.dev` / `password123`) with a full
+athlete profile, a 70.3 race 16 weeks out, fitness metrics, and today's check-in.
+
+### Database types
+
+After pushing a migration to the remote database, regenerate TypeScript types:
+
+```bash
+npm run db:types        # pulls from remote Supabase project
+npm run db:types:local  # pulls from local Supabase stack (must be running)
+```
+
+Always commit the updated `types/database.ts` alongside the migration.
 
 ### Run the app
 
