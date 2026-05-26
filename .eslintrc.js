@@ -5,5 +5,5 @@ module.exports = {
     'prettier/prettier': 'error',
     'no-console': 'warn',
   },
-  ignorePatterns: ['node_modules/', '.expo/', 'dist/'],
+  ignorePatterns: ['node_modules/', '.expo/', 'dist/', 'types/database.ts'],
 };
